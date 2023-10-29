@@ -18,9 +18,41 @@ def predict_image(authenticity_probability):
     else:
         return "Forgery"
 
+sample_images = {
+    "Sample 1": "demos/sample1.jpg",
+    "Sample 2": "demos/sample2.jpg",
+    "Sample 3": "demos/sample3.jpg",
+    "Sample 4": "demos/sample4.jpg",
+    "Sample 5": "demos/sample5.jpg",
+    "Sample 6": "demos/sample6.jpg",
+}
+
 st.title("Copy-Move Forgery Detection")
 st.text(' Its for demo purpose')
 st.text('582/5a1/595/569')
+
+import streamlit as st
+
+# with open("demos/sample2.jpg", "rb") as file:
+#     btn = st.download_button(
+#             label="sample image",
+#             data=file,
+#             file_name="demos/sample2.jpg",
+#             mime="image/png"
+#         )
+with st.sidebar:
+    st.markdown("## Sample Images")
+    for sample_name, sample_path in sample_images.items():
+        #st.write(f"**{sample_name}**")
+        #st.image(sample_path, use_column_width=True, caption=sample_name)
+    
+        with open(sample_path, "rb") as file:
+            st.download_button(
+                label=f"Download {sample_name}",
+                data=file,
+                file_name=sample_name,
+                mime="image/jpeg" if sample_path.endswith('.jpg') else "image/png"
+            )
 uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
