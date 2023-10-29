@@ -50,7 +50,7 @@ with st.sidebar:
             st.download_button(
                 label=f"Download {sample_name}",
                 data=file,
-                file_name=sample_name.jpg,
+                file_name=sample_name,
                 mime="image/jpeg" if sample_path.endswith('.jpg') else "image/png"
             )
 uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
