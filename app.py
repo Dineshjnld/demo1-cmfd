@@ -43,14 +43,13 @@ import streamlit as st
 with st.sidebar:
     st.markdown("## Sample Images")
     for sample_name, sample_path in sample_images.items():
-        #st.write(f"**{sample_name}**")
-        #st.image(sample_path, use_column_width=True, caption=sample_name)
-    
         with open(sample_path, "rb") as file:
+            # Include the file extension in the 'file_name' parameter
+            file_extension = "jpg" if sample_path.endswith('.jpg') else "png"
             st.download_button(
                 label=f"Download {sample_name}",
                 data=file,
-                file_name=sample_name,
+                file_name=f"{sample_name}.{file_extension}",
                 mime="image/jpeg" if sample_path.endswith('.jpg') else "image/png"
             )
 uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
