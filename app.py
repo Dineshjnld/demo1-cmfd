@@ -19,7 +19,8 @@ def predict_image(authenticity_probability):
         return "Forgery"
 
 st.title("Copy-Move Forgery Detection")
-
+st.text(' Its for demo purpose')
+st.text('582/5a1/595/569')
 uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
