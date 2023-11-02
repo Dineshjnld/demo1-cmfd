@@ -21,9 +21,9 @@ def predict_image(authenticity_probability):
 
 # Sample images that users can download
 sample_images = {
-    "Sample 1": "sample1.jpg",
-    "Sample 2": "sample2.jpg",
-    "Sample 3": "sample3.jpg"
+    "Sample 1": "./demos/sample1.jpg",
+    "Sample 2": "./demos/sample2.jpg",
+    "Sample 3": "./demos/sample3.jpg"
 }
 
 st.title("Copy-Move Forgery Detection")
