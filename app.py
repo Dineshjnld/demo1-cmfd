@@ -1,14 +1,15 @@
 import streamlit as st
-import cv2
+from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
 from io import BytesIO
+import os
 
 model = load_model("model1.h5")
 
 def preprocess_uploaded_image(uploaded_image):
-    uploaded_image = cv2.resize(uploaded_image, (224, 224))
-    uploaded_image = uploaded_image.astype(np.float32) / 255.0
+    uploaded_image = uploaded_image.resize((224, 224))
+    uploaded_image = np.array(uploaded_image) / 255.0
     return uploaded_image
 
 def predict_image(authenticity_probability):
@@ -18,32 +19,36 @@ def predict_image(authenticity_probability):
     else:
         return "Forgery"
 
-st.title("Copy-Move Forgery Detection")
+# Sample images that users can download
+sample_images = {
+    "Sample 1": "sample1.jpg",
+    "Sample 2": "sample2.jpg",
+    "Sample 3": "sample3.jpg"
+}
 
+st.title("Copy-Move Forgery Detection")
+st.text("It's for demo purposes")
+st.text("582/5a1/595/569")
+
+# Add links for downloading sample images
+st.write("Download Sample Images:")
+for sample_name, sample_image_path in sample_images.items():
+    st.markdown(f"- [{sample_name}]({sample_image_path})")
 
 uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
-    
     st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
 
-    # Read the uploaded image using BytesIO
     image_data = uploaded_image.read()
     
-    # Convert image data to a NumPy array
-    nparr = np.frombuffer(image_data, np.uint8)
+    uploaded_image = Image.open(BytesIO(image_data))
     
-    # Decode the NumPy array to an OpenCV image
-    uploaded_image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
-    # Preprocess the uploaded image
     preprocessed_image = preprocess_uploaded_image(uploaded_image)
     
-    # Make a prediction
     preprocessed_image = preprocessed_image.reshape(1, 224, 224, 3)
     prediction = model.predict(preprocessed_image)
     positive_class_probability = prediction[0, 1]
     
-    # Display the result
     st.write("The Image is ", predict_image(positive_class_probability))
-    st.write("Authenticity Probability: {:.4f}".format(positive_class_probability))
+    st.write("Authenticity Probability:", positive_class_probability)
