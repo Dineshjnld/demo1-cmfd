@@ -31,7 +31,7 @@ st.text("It's for demo purposes")
 st.text("582/5a1/595/569")
 
 # Add links for downloading sample images
-st.write("Download Sample Images:")
+st.sidebar.write("Download Sample Images:")
 for sample_name, sample_image_path in sample_images.items():
     st.markdown(f"- [{sample_name}]({sample_image_path})")
 
