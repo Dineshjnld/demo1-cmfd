@@ -67,5 +67,6 @@ if uploaded_image is not None:
     # Display the result
     st.write("The Image is ", predict_image(positive_class_probability))
     st.write("Authenticity Probability:", positive_class_probability)
-    st.write("Authenticity Probability: {:.4f}".format(positive_class_probability))
+    st.write("Forgery Probability:", (1-positive_class_probability))
+    
 
